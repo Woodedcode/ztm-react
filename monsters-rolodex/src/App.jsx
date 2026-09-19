@@ -5,12 +5,16 @@ const Card = (props) => {
 };
 
 const App = () => {
+  const arr = ['a', 'b', 'c','d','e','f'];
 
   return (
     <>
-      <Card name="a"/>
-      <Card />
-      <Card />
+    {
+      arr.map((name, index) => {
+        console.log(`${name}-${index}`)
+        return (
+          <Card key={`${name}-${index}`} name={name} />
+        )})}
     </>
   );
 }
