@@ -1,32 +1,33 @@
 import {useState,useEffect} from 'react'
 import './App.css'
 
-const Card = (props) => {
-  return <div>{props.name}</div>
+const Card = ({name,email}) => {
+  return <div>
+    <h3>{name}</h3>
+    <p>{email}</p>
+  </div>
 };
 
 const App = () => {
-  const [arr, setArr] = useState(['a', 'b', 'c','d','e','f']);
+  const [monsters, setMonsters] = useState([]);
+  console.log(monsters)
 
   useEffect(() => {
-    console.log('running side effect');
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    .then((data) => setMonsters(data))
   }, [])
 
   return (
     <>
     {
-      arr.map((name, index) => {
+      monsters.map(({name,email}, index) => {
         return (
-          <Card key={`${name}-${index}`} name={name} />
+          <Card key={`${name}-${index}`}
+           name={name}
+           email={email}
+            />
         )})}
-        <button 
-        onClick={() => {
-            setArr((arr) => [...arr, 'x']);
-            }
-          }
-        >
-          Add letter
-        </button>
     </>
   );
 }
